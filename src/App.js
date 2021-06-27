@@ -9,6 +9,8 @@ import IFrame from "./container/IFrame";
 import FileSaver from "file-saver";
 import { debounce } from "./utils";
 
+const DARK_ACE_THEME = AceEditor.solarized_dark;
+const LIGHT_ACE_THEME = AceEditor.solarized_light;
 function App() {
   let [editorValue, setEditorValue] = useState("");
   let [downloadValue, setDownloadValue] = useState(DEFAULT_HTML_VALUE);
@@ -17,7 +19,9 @@ function App() {
     localStorage.getItem("theme", themes.light)
   );
   useEffect(() => {
-    _initalizeEditor(AceEditor.solarized_light);
+    _initalizeEditor(
+      appTheme === themes.light ? LIGHT_ACE_THEME : DARK_ACE_THEME
+    );
   }, []);
 
   const _initalizeEditor = (theme) => {
@@ -42,10 +46,10 @@ function App() {
     let themeToSet = "";
     if (appTheme === themes.light) {
       themeToSet = themes.dark;
-      editorRef.current.setTheme(AceEditor.twilight);
+      editorRef.current.setTheme(DARK_ACE_THEME);
     } else {
       themeToSet = themes.light;
-      editorRef.current.setTheme(AceEditor.solarized_light);
+      editorRef.current.setTheme(LIGHT_ACE_THEME);
     }
     setAppTheme(themeToSet);
     localStorage.setItem("theme", themeToSet);
