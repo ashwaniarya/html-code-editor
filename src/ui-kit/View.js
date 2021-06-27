@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import Navbar from "react-bootstrap/Navbar";
 import { AppThemeContext, themes } from "./theme-setup";
 import "./ui.css";
 
@@ -12,7 +11,6 @@ const styles = {
 
 const View = ({ className, children, ...rest }) => {
   const [theme] = useContext(AppThemeContext);
-  console.log(styles.div[theme].className);
   return (
     <div
       className={
