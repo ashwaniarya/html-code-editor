@@ -1,5 +1,4 @@
-import React, { useContext } from "react";
-import { AppThemeContext, themes } from "./theme-setup";
+import React from "react";
 import "./ui.css";
 import {
   FaBeer,
