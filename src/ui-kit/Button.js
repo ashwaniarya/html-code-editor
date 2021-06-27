@@ -13,10 +13,10 @@ const CustumButton = ({ onClick, icon, text, style, disabled, ...rest }) => {
   const [theme] = useContext(AppThemeContext);
   return (
     <Button
-      variant={styles[theme].variant}
+      variant={styles[theme]?.variant}
       onClick={onClick}
       disabled={disabled}
-      style={{ ...{ display: "flex" }, ...styles[theme].style, ...style }}
+      style={{ ...{ display: "flex" }, ...styles[theme]?.style, ...style }}
       {...rest}
     >
       {icon && <Icon name={icon} style={{ marginRight: 8, marginTop: -2 }} />}

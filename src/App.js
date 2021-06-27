@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import AceEditor from "./lib/Ace";
@@ -16,15 +16,10 @@ function App() {
   let [downloadValue, setDownloadValue] = useState(DEFAULT_HTML_VALUE);
   let editorRef = useRef(null);
   let [appTheme, setAppTheme] = useState(
-    localStorage.getItem("theme", themes.light)
+    localStorage.getItem("theme") || themes.light
   );
-  useEffect(() => {
-    _initalizeEditor(
-      appTheme === themes.light ? LIGHT_ACE_THEME : DARK_ACE_THEME
-    );
-  }, []);
-
-  const _initalizeEditor = (theme) => {
+  const _initalizeEditor = useCallback(() => {
+    let theme = appTheme === themes.light ? LIGHT_ACE_THEME : DARK_ACE_THEME;
     const editor = AceEditor.edit("editor");
     editor.setTheme(theme);
     editor.session.setMode(new AceEditor.mode());
@@ -36,7 +31,11 @@ function App() {
       }, 300)
     );
     editorRef.current = editor;
-  };
+  }, [appTheme]);
+
+  useEffect(() => {
+    _initalizeEditor();
+  }, [_initalizeEditor]);
 
   const onRunHandler = () => {
     setEditorValue(editorRef.current.getValue());

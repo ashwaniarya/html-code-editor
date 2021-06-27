@@ -15,8 +15,8 @@ const View = ({ className, children, ...rest }) => {
     <div
       className={
         className
-          ? `${styles.div[theme].className} ${className}`
-          : styles.div[theme].className
+          ? `${styles.div[theme]?.className} ${className}`
+          : styles.div[theme]?.className
       }
       {...rest}
     >
